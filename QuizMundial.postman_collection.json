@@ -1,0 +1,125 @@
+{
+	"info": {
+		"name": "QuizMundial",
+		"_postman_id": "f1a55f4e-f79b-75e8-70cf-1ef31bee251a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Jogador",
+			"description": "",
+			"item": [
+				{
+					"name": "JogadorGet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/jogador?id=2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"jogador"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2",
+									"equals": true,
+									"description": "id do objeto"
+								},
+								{
+									"key": "nick",
+									"value": "Dougras",
+									"equals": true,
+									"description": "nick do jogador",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "JogadorSalvar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nick\":\"Minaj\",\n\t\"idade\":20\n}"
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/jogador",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"jogador"
+							]
+						},
+						"description": "Exemplo de POST para salvar um jogador"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "QuizMundial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ranking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "127.0.0.1:8080/jogador/ranking",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"jogador",
+						"ranking"
+					]
+				},
+				"description": "Como funciona uma consulta de ranking"
+			},
+			"response": []
+		}
+	]
+}
