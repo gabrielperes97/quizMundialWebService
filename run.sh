@@ -1,2 +1,3 @@
 #!/bin/sh
-mvn spring-boot:run
+APPDIR="$(dirname -- "$(readlink -f -- "${0}")" )"
+java -jar $APPDIR/target/QuizMundial-WebService-*.jar
