@@ -132,7 +132,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>getbrains.Application</mainClass>
+                            <mainClass>com.getbrains.qmrestservice.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
