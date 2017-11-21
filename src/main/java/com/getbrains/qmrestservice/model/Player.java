@@ -14,7 +14,7 @@ public class Player {
     private Integer ID;
 
     @Column(name = "password", nullable = false)
-    private byte[] password;
+    private String password;
 
     @Column(name = "nick", nullable = false)
     private String nick;
@@ -38,7 +38,7 @@ public class Player {
     public Player() {
     }
 
-    public Player(Integer ID, String nick, Integer age, Integer score, Integer currentLevel, Integer hits, Integer answeredQuestions, byte[] password) {
+    public Player(Integer ID, String nick, Integer age, Integer score, Integer currentLevel, Integer hits, Integer answeredQuestions, String password) {
         this.ID = ID;
         this.nick = nick;
         this.age = age;
@@ -57,11 +57,11 @@ public class Player {
         this.ID = ID;
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(byte[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
