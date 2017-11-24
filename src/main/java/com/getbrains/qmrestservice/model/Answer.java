@@ -21,16 +21,16 @@ public class Answer {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Question.class)
     @JoinColumn(name = "questionid_fk", nullable = false)
-    private Integer questionID;
+    private Question question;
 
     public Answer() {
     }
 
-    public Answer(Integer ID, String label, Boolean correct, Integer questionID) {
+    public Answer(Integer ID, String label, Boolean correct, Question questionID) {
         this.ID = ID;
         this.label = label;
         this.correct = correct;
-        this.questionID = questionID;
+        this.question = questionID;
     }
 
     public Integer getID() {
@@ -57,11 +57,7 @@ public class Answer {
         this.correct = correct;
     }
 
-    public Integer getQuestionID() {
-        return questionID;
-    }
-
-    public void setQuestionID(Integer questionID) {
-        this.questionID = questionID;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }
