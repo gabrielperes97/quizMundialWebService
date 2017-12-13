@@ -84,3 +84,5 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/maven,java-web,intellij
 .directory
+=======
+
