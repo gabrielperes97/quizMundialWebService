@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>getBrains.QuizMundial</groupId>
+    <groupId>get.brains.quizmudial</groupId>
     <artifactId>QuizMundial-WebService</artifactId>
     <version>1.0</version>
   
@@ -74,6 +74,17 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.7.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -132,7 +143,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.getbrains.qmrestservice.Application</mainClass>
+                            <mainClass>get.brains.quizmundial.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
