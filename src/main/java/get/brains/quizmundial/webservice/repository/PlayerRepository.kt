@@ -7,4 +7,6 @@ interface PlayerRepository : CrudRepository<Player, Int> {
     fun findAllByOrderByScoreDesc():List<Player>
 
     fun findByNick(nick: String): Player
+
+    fun findByNickAndPassword(nick: String, password: String): Player
 }

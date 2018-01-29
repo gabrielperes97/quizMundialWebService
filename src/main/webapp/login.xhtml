@@ -17,21 +17,22 @@
         <br/><br/>
         <div id="containerLogin">
             <br/>
-            <form class="w3-container">
+            <h:form class="w3-container">
                 <p>
                     <label><b>Usuário</b></label>
-                    <input class="w3-input" type="text" /></p>
-
+                    <h:inputText styleClass="w3-input" type="text" value="#{loginController.login}"/>
+                </p>
                 <p>
                     <label><b>Senha</b></label>
-                    <input class="w3-input" type="text" /></p>
-            </form>
-            <br/><br/><center>
-            <a href="menu.jsf"><button name="entrar">Entrar</button></a>
-            <a href="cadastro.jsf"><button name="cadastrar" >Cadastrar</button></a>
-            <br/><br/>
-            <h6><a href="menu.jsf">Entrar como visitante</a></h6>
+                    <h:inputText styleClass="w3-input" type="password" value="#{loginController.password}" />
+                </p>
+                <br/><br/><center>
+                <h:commandButton styleClass="buttonMenu" value="Entrar" action="#{loginController.doLogin}"/>
+                <a href="cadastro.jsf"><button name="cadastrar" >Cadastrar</button></a>
+                <br/><br/>
+                <h6><a href="menu.jsf">Entrar como visitante</a></h6>
             </center>
+            </h:form>
         </div>
         <br/><br/>
     </div>

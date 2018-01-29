@@ -2,6 +2,10 @@ package get.brains.quizmundial.webservice.model;
 
 import javax.persistence.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "Player")
@@ -111,6 +115,30 @@ public class Player {
 
     public void setAnsweredQuestions(Integer answeredQuestions) {
         this.answeredQuestions = answeredQuestions;
+    }
+
+    public static String hash(String input)
+    {
+        MessageDigest digest;
+        try
+        {
+            digest = MessageDigest.getInstance("SHA-1");
+            byte[] sha1 = digest.digest(input.getBytes("UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            for(byte b : sha1)
+                sb.append(Integer.toHexString((b&0xFF) | 0x100).substring(1,3));
+            return sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
