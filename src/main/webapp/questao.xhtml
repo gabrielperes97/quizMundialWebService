@@ -14,37 +14,36 @@
     <h1>América do Sul</h1>
     <div id="containerQuestao">
         <div id="containerQ">
-            <p><span>Qual o menor país da América? </span></p>
+            <p><span><h:outputText value="#{gameController.playerBean.game.actualQuestion.statement}" /></span></p>
         </div>
-        <div id="containerQ2"><br/>
-            <center>
-                <div class="buttonQuestion">
-                    <a href="#">
-                        <button name="alternativa1">Alternativa 1</button></a>
-                    <a href="#">
-                        <button name="alternativa2">Alternativa 2</button></a>
-                    <a href="#">
-                        <button name="alternativa3">Alternativa 3</button></a>
-                    <a href="#">
-                        <button name="alternativa4">Alternativa 4</button></a>
-                </div>
-                <div class="buttonQ">
-                    <p>
-                        <a href="#" class="amarelo"><b>Dica</b></a>
-                        <a href="#" class="azul"><b>Pular</b></a>
-                    </p>
-                </div>
-                <div class="buttonBackQuestion">
-                    <center>
-                    <p>
-                        <a href="menu.jsf">
-                            <button name="voltar"><b>Voltar ao Menu</b></button>
-                        </a>
-                    </p>
-                    </center>
-                </div>
-            </center>
-        </div>
+        <h:form>
+            <div id="containerQ2"><br/>
+                <center>
+                    <div class="buttonQuestion">
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[0].label}" />
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[1].label}" />
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[2].label}" />
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[3].label}" />
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[4].label}" />
+                    </div>
+                    <div class="buttonQ">
+                        <p>
+                            <a href="#" class="amarelo"><b>Dica</b></a>
+                            <a href="#" class="azul"><b>Pular</b></a>
+                        </p>
+                    </div>
+                    <div class="buttonBackQuestion">
+                        <center>
+                        <p>
+                            <a href="menu.jsf">
+                                <button name="voltar"><b>Voltar ao Menu</b></button>
+                            </a>
+                        </p>
+                        </center>
+                    </div>
+                </center>
+            </div>
+        </h:form>
     </div>
 </h:body>
 </html>

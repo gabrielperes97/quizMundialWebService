@@ -6,7 +6,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
 </h:head>
@@ -18,26 +17,26 @@
     <div id="containerMenu">
         <div id="containerCadastro" align="center">
             <div class="buttonMenu">
-                <br/><br/>
-                <center>
-                <a href="questao.jsf">
-                    <button name="continuaJogo">CONTINUAR JOGO</button>
-                </a>
-                <br/>
-                <a href="questao.jsf">
-                    <button name="iniciaJogo" >INICIAR NOVO JOGO</button>
-                </a>
-                <br/>
-                <button name="opcoes" >OPÇÕES</button>
-                <br/>
-                <a href="sobre.jsf">
-                    <button name="sobre" >SOBRE</button>
-                </a>
-                <br/><br/><br/><br/><br/>
-                <a href="login.jsf">
-                    <button name="sair" class="vermelho" >Sair</button>
-                </a>
-                </center>
+                <h:form>
+                    <br/><br/>
+                    <center>
+                    <a href="questao.jsf">
+                        <button name="continuaJogo">CONTINUAR JOGO</button>
+                    </a>
+                    <br/>
+                    <h:commandButton value="INICIAR NOVO JOGO" actionListener="#{menuController.novoJogo()}"/>
+                    <br/>
+                    <button name="opcoes" >OPÇÕES</button>
+                    <br/>
+                    <a href="sobre.jsf">
+                        <button name="sobre" >SOBRE</button>
+                    </a>
+                    <br/><br/><br/><br/><br/>
+                    <a href="login.jsf">
+                        <button name="sair" class="vermelho" >Sair</button>
+                    </a>
+                    </center>
+                </h:form>
             </div>
         </div>
     </div>

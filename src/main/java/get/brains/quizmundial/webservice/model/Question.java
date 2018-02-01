@@ -1,7 +1,13 @@
 package get.brains.quizmundial.webservice.model;
 
 
+import org.ocpsoft.rewrite.annotation.Join;
+
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -25,6 +31,9 @@ public class Question {
 
     @Column(name = "statement", nullable = false, length = 256)
     private String statement;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Answer> answers = new ArrayList<>();
 
     public Integer getID() {
         return ID;
@@ -64,5 +73,13 @@ public class Question {
 
     public void setStatement(String statement) {
         this.statement = statement;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }

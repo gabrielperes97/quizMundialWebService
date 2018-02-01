@@ -1,5 +1,6 @@
 package get.brains.quizmundial.web.controllers
 
+import get.brains.quizmundial.web.objects.Game
 import get.brains.quizmundial.webservice.model.Player
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -9,5 +10,9 @@ import org.springframework.stereotype.Component
 class PlayerBean {
 
     var player: Player? = null
+    var game: Game? = null
 
+    fun hasGame():Boolean{
+        return (game != null)
+    }
 }
