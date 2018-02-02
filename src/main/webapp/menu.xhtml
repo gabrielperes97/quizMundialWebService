@@ -17,15 +17,15 @@
     <div id="containerMenu">
         <div id="containerCadastro" align="center">
             <div class="buttonMenu">
-                <h:form>
-                    <br/><br/>
-                    <center>
+                <br/><br/>
+                <center>
                     <a href="questao.jsf">
                         <button name="continuaJogo">CONTINUAR JOGO</button>
                     </a>
                     <br/>
-                    <h:commandButton value="INICIAR NOVO JOGO" actionListener="#{menuController.novoJogo()}"/>
-                    <br/>
+                    <h:form>
+                        <h:commandButton value="INICIAR NOVO JOGO" actionListener="#{menuController.novoJogo()}"/>
+                    </h:form>
                     <button name="opcoes" >OPÇÕES</button>
                     <br/>
                     <a href="sobre.jsf">
@@ -35,8 +35,7 @@
                     <a href="login.jsf">
                         <button name="sair" class="vermelho" >Sair</button>
                     </a>
-                    </center>
-                </h:form>
+                </center>
             </div>
         </div>
     </div>

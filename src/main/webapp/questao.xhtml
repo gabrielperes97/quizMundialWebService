@@ -11,39 +11,41 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </h:head>
 <h:body class="pais">
-    <h1>América do Sul</h1>
+    <h1><h:outputText value="#{gameController.playerBean.game.actualQuestion.continent}" /></h1>
     <div id="containerQuestao">
         <div id="containerQ">
             <p><span><h:outputText value="#{gameController.playerBean.game.actualQuestion.statement}" /></span></p>
         </div>
-        <h:form>
-            <div id="containerQ2"><br/>
-                <center>
+        <h:outputText value="#{gameController.playerBean.game.points}" />
+        <div id="containerQ2"><br/>
+            <b:messages />
+            <center>
+                <h:form>
                     <div class="buttonQuestion">
-                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[0].label}" />
-                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[1].label}" />
-                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[2].label}" />
-                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[3].label}" />
-                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[4].label}" />
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[0].label}" actionListener="#{gameController.answerAQuestion(0)}" disabled="#{gameController.buttonDisabled[0]}"/>
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[1].label}" actionListener="#{gameController.answerAQuestion(1)}" disabled="#{gameController.buttonDisabled[1]}"/>
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[2].label}" actionListener="#{gameController.answerAQuestion(2)}" disabled="#{gameController.buttonDisabled[2]}"/>
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[3].label}" actionListener="#{gameController.answerAQuestion(3)}" disabled="#{gameController.buttonDisabled[3]}"/>
+                        <h:commandButton value="#{gameController.playerBean.game.actualQuestion.answers[4].label}" actionListener="#{gameController.answerAQuestion(4)}" disabled="#{gameController.buttonDisabled[4]}"/>
                     </div>
                     <div class="buttonQ">
                         <p>
-                            <a href="#" class="amarelo"><b>Dica</b></a>
-                            <a href="#" class="azul"><b>Pular</b></a>
+                            <h:commandButton styleClass="amarelo" value="Dica #{gameController.playerBean.game.dicasDisponiveis}/3" actionListener="#{gameController.dica()}" disabled="#{gameController.playerBean.game.dicasDisponiveis == 0}" />
+                            <h:commandButton styleClass="azul" value="Pular #{gameController.playerBean.game.pulosDisponiveis}/3" actionListener="#{gameController.pular()}" disabled="#{gameController.playerBean.game.pulosDisponiveis == 0}" />
                         </p>
                     </div>
-                    <div class="buttonBackQuestion">
-                        <center>
+                </h:form>
+                <div class="buttonBackQuestion">
+                    <center>
                         <p>
                             <a href="menu.jsf">
                                 <button name="voltar"><b>Voltar ao Menu</b></button>
                             </a>
                         </p>
-                        </center>
-                    </div>
-                </center>
-            </div>
-        </h:form>
+                    </center>
+                </div>
+            </center>
+        </div>
     </div>
 </h:body>
 </html>

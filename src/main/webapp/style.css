@@ -56,7 +56,7 @@ button:hover {
     color: white;
 }
 
-input {
+input[type="submit"] {
   	background-color: #696969;
     border: none;
     color: white;
@@ -72,9 +72,14 @@ input {
     border: 1px solid black;
     border-radius: 12px;
 }
-input:hover {
+input[type="submit"]:hover {
     background-color: black;
     color: white;
+}
+
+
+input[type="submit"]:disabled {
+    opacity: 0.5;
 }
 
 .buttonQ{
@@ -84,7 +89,7 @@ input:hover {
     display:inline-block;
     text-decoration:none;
     padding: 5px;
-    width: 49%;
+    width: 48%;
     height: 10%;
     border:2px solid #ccc;
     border-radius: 5px;
@@ -105,10 +110,41 @@ input:hover {
 .buttonQ .azul{
 	background-color:#0000FF;
 	color:white;
+    font: 300% arial, sans-serif;
+    outline: 0;
+    text-decoration: none;
+    padding: 5px;
+    width: 48%;
+    height: 10%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
 }
+
+.buttonQ:hover .azul:hover{
+    color:black;
+    border-color:black;
+    background-color:  #0000FF;
+}
+
 .buttonQ .amarelo{
 	background-color:  #FFD700;
 	color:white;
+    font: 300% arial, sans-serif;
+    outline: 0;
+    text-decoration: none;
+    padding: 5px;
+    width: 49%;
+    height: 10%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.buttonQ:hover .amarelo:hover{
+    color:black;
+    border-color:black;
+    background-color:  #FFD700;
 }
 
 .buttonMenu button{
@@ -157,13 +193,28 @@ input:hover {
 .vermelho{
 	background-color:red;
 }
+
 .amarelo{
 	background-color:yellow;
-	color: black;
+	color: white;
+	border-color: white;
+	font-size: 100%;
+
 }
+
+.amarelo:hover{
+    border-color: black;
+    color: black;
+}
+
 .azul{
 	background-color:#1E90FF;
 	color: black;
+}
+
+.azul {
+    background-color:#1E90FF;
+    color: black;
 }
 .pais{
 	background-color: #047faa;

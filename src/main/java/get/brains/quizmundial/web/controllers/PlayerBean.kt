@@ -12,7 +12,4 @@ class PlayerBean {
     var player: Player? = null
     var game: Game? = null
 
-    fun hasGame():Boolean{
-        return (game != null)
-    }
 }
