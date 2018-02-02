@@ -11,10 +11,10 @@ h1{
 	font-family: "Segoe UI Black";
 	font-size:300%;
 	color:#32CD32;
-    text-shadow: 3px 3px 3px #00008B, 
-                 3px 3px 3px #00008B, 
-                 3px 3px 3px #00008B, 
-                 3px 3px 3px #00008B;
+    text-shadow: 1px 1px 1px #00008B,
+                 1px 1px 1px #00008B,
+                 1px 1px 1px #00008B,
+                 1px 1px 1px #00008B;
 }
 
 h2{
@@ -247,14 +247,25 @@ input[type="submit"]:disabled {
 
 #containerCadastro{
 	width: 50%;
-	height: 475px;
-	padding:0;
+	padding:20px 0 20px 0;
 	margin: 0 auto;
 	text-align: left;
 	border-radius: 30px;
 	background: rgb(255, 255, 255);
 	background: rgba(255, 255, 255, 0.5);
 	overflow:hidden;
+}
+
+#estatisticas{
+	width: 50%;
+	padding:20px;
+	margin: 0 auto;
+	text-align: left;
+	border-radius: 30px;
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.5);
+	overflow:hidden;
+	text-align: center;
 }
 
 #containerQuestao{
@@ -265,7 +276,6 @@ input[type="submit"]:disabled {
 	margin: 0 auto;
 	text-align: left;
 	background:url(images/globe_america.png) no-repeat top right;
-	background-image: url(images/globe_america.png);
 	background-size: 60%;
 	overflow:hidden;
 }

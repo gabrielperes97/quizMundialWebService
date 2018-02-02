@@ -1,8 +1,6 @@
 package get.brains.quizmundial.web.controllers
 
-import get.brains.quizmundial.web.objects.AnsweredQuestion
 import net.bootsfaces.utils.FacesMessages
-import org.ocpsoft.rewrite.config.False
 import org.ocpsoft.rewrite.el.ELBeanName
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
@@ -16,13 +14,8 @@ class GameController {
 
     @Autowired
     var playerBean : PlayerBean? = null
-        get() {
-            if (field!!.game == null)
-                FacesContext.getCurrentInstance().externalContext.redirect("menu.jsf")
-            return field
-        }
 
-    var buttonDisabled = Array<Boolean>(5){i -> false}
+    var buttonDisabled = Array<Boolean>(5){_ -> false}
 
 
     fun answerAQuestion(index : Int) {
@@ -32,15 +25,14 @@ class GameController {
             FacesMessages.info("Parabéns", "Você acertou a questão")
         }
         else {
-            FacesMessages.error(":(", "Que pena!, você errou");
+            FacesMessages.error(":(", "Que pena!, você errou")
         }
-        if (playerBean!!.game!!.getNextQuestion() != null)
+        if (playerBean!!.game!!.getNextQuestion() == null)
         {
             //finaliza jogo
+            FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
         }
-        buttonDisabled = Array<Boolean>(5){i -> false}
-
-
+        buttonDisabled = Array<Boolean>(5){_ -> false}
     }
 
     fun pular() {
@@ -48,7 +40,7 @@ class GameController {
         {
             playerBean!!.game!!.pulo()
         }
-        buttonDisabled = Array<Boolean>(5){i -> false}
+        buttonDisabled = Array<Boolean>(5){_ -> false}
     }
 
     fun dica() {
@@ -57,11 +49,27 @@ class GameController {
             val i = playerBean!!.game!!.dica()
             if (i >= 0)
                 buttonDisabled[i] = true
-            print("desabilitou "+i+"\n")
         }
-        
     }
 
+    fun finalizarJogo()
+    {
+        playerBean!!.game = null
+        FacesContext.getCurrentInstance().externalContext.redirect("menu.jsf")
+    }
+
+    fun background():String
+    {
+        when(playerBean!!.game!!.level)
+        {
+            0 -> return "globe_america.png"
+            1 -> return "globe_asia.png"
+            2 -> return "globe_africa.png"
+            3 -> return "globe_europe.png"
+            4 -> return "globe_oceania.png"
+            else -> return ""
+        }
+    }
 
 
 

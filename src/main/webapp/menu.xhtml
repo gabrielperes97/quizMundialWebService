@@ -17,13 +17,10 @@
     <div id="containerMenu">
         <div id="containerCadastro" align="center">
             <div class="buttonMenu">
-                <br/><br/>
                 <center>
-                    <a href="questao.jsf">
-                        <button name="continuaJogo">CONTINUAR JOGO</button>
-                    </a>
-                    <br/>
                     <h:form>
+                        <h:commandButton value="CONTINUAR JOGO" action="questao.jsf" disabled="#{!menuController.hasGame}"/>
+                        <br/>
                         <h:commandButton value="INICIAR NOVO JOGO" actionListener="#{menuController.novoJogo()}"/>
                     </h:form>
                     <button name="opcoes" >OPÇÕES</button>

@@ -12,7 +12,7 @@
 </h:head>
 <h:body class="pais">
     <h1><h:outputText value="#{gameController.playerBean.game.actualQuestion.continent}" /></h1>
-    <div id="containerQuestao">
+    <div id="containerQuestao" style="background:url(images/#{gameController.background()}) no-repeat top right ">
         <div id="containerQ">
             <p><span><h:outputText value="#{gameController.playerBean.game.actualQuestion.statement}" /></span></p>
         </div>

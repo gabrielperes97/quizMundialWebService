@@ -32,7 +32,7 @@ class MenuController {
     var playerName : String = "Visitante"
         get() {
             if (playerBean!!.player != null)
-                return playerBean!!.player!!.nick
+                return playerBean.player!!.nick
             else
                 return "Visitante"
         }

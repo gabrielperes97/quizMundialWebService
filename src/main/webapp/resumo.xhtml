@@ -11,21 +11,25 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </h:head>
 <h:body class="background-image">
-    <br/><img src="images/title_about.png" width="14%" />
+    <br/><img src="images/title_gameover.png" width="14%" />
     <br/><p></p>
-    <div id="containerMenu">
-        Game Over
-
-
-        Estatísticas
-        Pontuação:
-        Perguntas:
-        Acertos:
-        Taxa de acertos:
-
+    <div id="estatisticas">
+        <h1> Estatísticas </h1>
+        <h:outputLabel for="pont" value="Pontuação: " />
+        <h:outputText id="pont" value="#{gameController.playerBean.game.totalPoints}" />
         <br />
-        botão continuar
-
+        <h:outputLabel for="perg" value="Perguntas: " />
+        <h:outputText id="perg" value="#{gameController.playerBean.game.totalPerguntas()}" />
+        <br />
+        <h:outputLabel for="acer" value="Acertos: " />
+        <h:outputText id="acer" value="#{gameController.playerBean.game.acertos}" />
+        <br />
+        <h:outputLabel for="tax" value="Taxa de acertos: " />
+        <h:outputText id="tax" value="#{gameController.playerBean.game.taxaAcertos()}%" />
+        <br />
+        <h:form>
+            <h:commandButton value="Continuar" actionListener="#{gameController.finalizarJogo()}" />
+        </h:form>
     </div>
 </h:body>
 </html>

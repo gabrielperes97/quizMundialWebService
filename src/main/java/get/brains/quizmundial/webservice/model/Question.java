@@ -32,6 +32,9 @@ public class Question {
     @Column(name = "statement", nullable = false, length = 256)
     private String statement;
 
+    @Column(name = "stage", nullable = false)
+    private Integer stage;
+
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
@@ -81,5 +84,13 @@ public class Question {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
     }
 }
