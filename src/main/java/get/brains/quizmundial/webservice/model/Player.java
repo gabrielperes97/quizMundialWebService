@@ -27,19 +27,23 @@ public class Player {
     private Integer age;
 
     @Column(name = "score", nullable = false)
-    private Integer score;
+    private Integer score =0;
 
     @Column(name = "current_level", nullable = false)
-    private Integer currentLevel;
+    private Integer currentLevel =0;
 
     @Column(name = "hits", nullable = false)
-    private Integer hits;
+    private Integer hits=0;
 
     @Column(name = "answered_questions", nullable = false)
-    private Integer answeredQuestions;
+    private Integer answeredQuestions=0;
 
 
     public Player() {
+    }
+
+    public Player(String nick) {
+        this.nick = nick;
     }
 
     public Player(Integer ID, String nick, Integer age, Integer score, Integer currentLevel, Integer hits, Integer answeredQuestions, String password) {

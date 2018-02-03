@@ -1,5 +1,6 @@
 package get.brains.quizmundial.web.controllers
 
+import get.brains.quizmundial.webservice.repository.PlayerRepository
 import net.bootsfaces.utils.FacesMessages
 import org.ocpsoft.rewrite.el.ELBeanName
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,13 +14,16 @@ import javax.faces.context.FacesContext
 class GameController {
 
     @Autowired
-    var playerBean : PlayerBean? = null
+    lateinit var playerBean : PlayerBean
+
+    @Autowired
+    lateinit var playerRepository: PlayerRepository
 
     var buttonDisabled = Array<Boolean>(5){_ -> false}
 
 
     fun answerAQuestion(index : Int) {
-        if (playerBean!!.game!!.answerQuestion(playerBean!!.game!!.actualQuestion!!.answers[index]))
+        if (playerBean.game!!.answerQuestion(playerBean.game!!.actualQuestion!!.answers[index]))
             //mensagem questão correta
         {
             FacesMessages.info("Parabéns", "Você acertou a questão")
@@ -27,7 +31,7 @@ class GameController {
         else {
             FacesMessages.error(":(", "Que pena!, você errou")
         }
-        if (playerBean!!.game!!.getNextQuestion() == null)
+        if (playerBean.game!!.getNextQuestion() == null)
         {
             //finaliza jogo
             FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
@@ -36,17 +40,17 @@ class GameController {
     }
 
     fun pular() {
-        if (playerBean!!.game!!.pulosDisponiveis > 0)
+        if (playerBean.game!!.pulosDisponiveis > 0)
         {
-            playerBean!!.game!!.pulo()
+            playerBean.game!!.pulo()
         }
         buttonDisabled = Array<Boolean>(5){_ -> false}
     }
 
     fun dica() {
-        if (playerBean!!.game!!.dicasDisponiveis > 0)
+        if (playerBean.game!!.dicasDisponiveis > 0)
         {
-            val i = playerBean!!.game!!.dica()
+            val i = playerBean.game!!.dica()
             if (i >= 0)
                 buttonDisabled[i] = true
         }
@@ -54,13 +58,17 @@ class GameController {
 
     fun finalizarJogo()
     {
-        playerBean!!.game = null
+        playerBean.game = null
+        playerBean.player.currentLevel = 0
+        playerBean.player.score = 0
+        if (playerBean.player.id != null)
+            playerRepository.save(playerBean.player)
         FacesContext.getCurrentInstance().externalContext.redirect("menu.jsf")
     }
 
     fun background():String
     {
-        when(playerBean!!.game!!.level)
+        when(playerBean.player.currentLevel)
         {
             0 -> return "globe_america.png"
             1 -> return "globe_asia.png"

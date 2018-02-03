@@ -22,16 +22,11 @@
                         <h:commandButton value="CONTINUAR JOGO" action="questao.jsf" disabled="#{!menuController.hasGame}"/>
                         <br/>
                         <h:commandButton value="INICIAR NOVO JOGO" actionListener="#{menuController.novoJogo()}"/>
+
+                        <h:commandButton value="SOBRE" action="sobre.jsf" />
+                        <br/><br/>
+                        <h:commandButton styleClass="vermelho" value="Sair" action="#{loginController.undoLogin}" />
                     </h:form>
-                    <button name="opcoes" >OPÇÕES</button>
-                    <br/>
-                    <a href="sobre.jsf">
-                        <button name="sobre" >SOBRE</button>
-                    </a>
-                    <br/><br/><br/><br/><br/>
-                    <a href="login.jsf">
-                        <button name="sair" class="vermelho" >Sair</button>
-                    </a>
                 </center>
             </div>
         </div>

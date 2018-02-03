@@ -1,6 +1,7 @@
 package get.brains.quizmundial.web.controllers
 
 import get.brains.quizmundial.web.objects.Game
+import get.brains.quizmundial.webservice.repository.PlayerRepository
 import get.brains.quizmundial.webservice.repository.QuestionRepository
 import org.ocpsoft.rewrite.el.ELBeanName
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,26 +20,29 @@ import javax.faces.context.FacesContext
 class MenuController {
 
     @Autowired
-    private val playerBean : PlayerBean? = null
+    lateinit var playerBean : PlayerBean
 
     @Autowired
-    private val questionDao : QuestionRepository? = null
+    lateinit var questionDao : QuestionRepository
+
+    @Autowired
+    lateinit var playerRepository: PlayerRepository
 
     var hasGame : Boolean = false
         get(){
-            return (playerBean!!.game != null)
+            return (playerBean.game != null)
         }
 
     var playerName : String = "Visitante"
         get() {
-            if (playerBean!!.player != null)
-                return playerBean.player!!.nick
+            if (playerBean.player.nick != null)
+                return playerBean.player.nick
             else
                 return "Visitante"
         }
 
     fun novoJogo() {
-        playerBean!!.game = Game(questionDao!!)
+        playerBean.game = Game(questionDao, playerRepository, playerBean)
         FacesContext.getCurrentInstance().externalContext.redirect("questao.jsf")
     }
 

@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </h:head>
 <h:body class="background-image">
-    <br/><img src="images/title_login.png" width="15%" />
+    <img src="images/title_login.png" width="15%" />
     <br/><br/>
     <div id="containerGloboDireita">
         <br/><br/>
@@ -19,19 +19,27 @@
             <br/>
             <h:form class="w3-container">
                 <p>
-                    <label><b>Usuário</b></label>
-                    <h:inputText styleClass="w3-input" type="text" value="#{loginController.login}"/>
+                    <b:inputText value="#{loginController.login}" label="Usuário">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="user" />
+                        </f:facet>
+                    </b:inputText>
                 </p>
                 <p>
-                    <label><b>Senha</b></label>
-                    <h:inputText styleClass="w3-input" type="password" value="#{loginController.password}" />
+                    <b:inputSecret value="#{loginController.password}" label="Senha">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="key" />
+                        </f:facet>
+                    </b:inputSecret>
                 </p>
-                <br/><br/><center>
-                <h:commandButton styleClass="buttonMenu" value="Entrar" action="#{loginController.doLogin}"/>
-                <a href="cadastro.jsf"><button name="cadastrar" >Cadastrar</button></a>
                 <br/><br/>
-                <h6><a href="menu.jsf">Entrar como visitante</a></h6>
-            </center>
+                <center>
+                    <b:messages />
+                    <h:commandButton styleClass="buttonMenu" value="Entrar" action="#{loginController.doLogin}"/>
+                    <h:commandButton value="Cadastrar" action="cadastro.jsf" />
+                    <br/><br/>
+                    <h6><a href="menu.jsf">Entrar como visitante</a></h6>
+                </center>
             </h:form>
         </div>
         <br/><br/>

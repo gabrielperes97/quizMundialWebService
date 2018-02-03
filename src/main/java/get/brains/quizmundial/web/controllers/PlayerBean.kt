@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Scope("session")
 class PlayerBean {
 
-    var player: Player? = null
+    var player: Player = Player()
     var game: Game? = null
 
 }

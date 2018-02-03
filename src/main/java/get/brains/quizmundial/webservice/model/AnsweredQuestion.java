@@ -27,6 +27,16 @@ public class AnsweredQuestion {
     @Column(name = "hit", nullable = false)
     private Boolean hit;
 
+    public AnsweredQuestion() {
+    }
+
+    public AnsweredQuestion(Player player, Question question, Integer difficult, Boolean hit) {
+        this.player = player;
+        this.question = question;
+        this.difficult = difficult;
+        this.hit = hit;
+    }
+
     public Integer getId() {
         return id;
     }

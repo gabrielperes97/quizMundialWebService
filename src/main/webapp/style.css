@@ -190,7 +190,7 @@ input[type="submit"]:disabled {
     width: 100%;
 }
 
-.vermelho{
+.buttonMenu .vermelho{
 	background-color:red;
 }
 
