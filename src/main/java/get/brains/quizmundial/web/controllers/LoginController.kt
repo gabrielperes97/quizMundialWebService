@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import javax.faces.context.FacesContext
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "loginController")
 @ELBeanName(value = "loginController")
 class LoginController {

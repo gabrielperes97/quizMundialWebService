@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 import javax.faces.context.FacesContext
 
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "cadastroController")
 @ELBeanName(value = "cadastroController")
 class CadastroController {

@@ -21,6 +21,8 @@ class GameController {
 
     var buttonDisabled = Array<Boolean>(5){_ -> false}
 
+    var timer = 15
+
 
     fun answerAQuestion(index : Int) {
         if (playerBean.game!!.answerQuestion(playerBean.game!!.actualQuestion!!.answers[index]))
@@ -36,6 +38,7 @@ class GameController {
             //finaliza jogo
             FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
         }
+        timer = 15
         buttonDisabled = Array<Boolean>(5){_ -> false}
     }
 
@@ -78,6 +81,33 @@ class GameController {
             else -> return ""
         }
     }
+
+    fun decrementTimer(){
+        if (timer <= 0)
+        {
+            playerBean.game!!.answerQuestion(null)
+            FacesMessages.error(":(", "Você demorou demais")
+
+            if (playerBean.game!!.getNextQuestion() == null)
+            {
+                //finaliza jogo
+                FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
+            }
+            timer = 15
+            buttonDisabled = Array<Boolean>(5){_ -> false}
+        }
+        else
+        {
+            timer--
+        }
+    }
+
+    fun getTimerPercent():Int
+    {
+        if (timer < 0) return 0
+        return (timer *100) /15
+    }
+
 
 
 

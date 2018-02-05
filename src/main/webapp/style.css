@@ -165,13 +165,13 @@ input[type="submit"]:disabled {
 	border-color:#5ae000;
 }
 
-.buttonBackQuestion button{
+.buttonBackQuestion input[type="submit"]{
 	background-color: red;
 	width: 100%;
 	padding: 2%;
 	font:130% arial, sans-serif;
 }
-.buttonBackQuestion button:hover{
+.buttonBackQuestion input[type="submit"]:hover{
 	background-color: white; 
 	color: black;
 }
