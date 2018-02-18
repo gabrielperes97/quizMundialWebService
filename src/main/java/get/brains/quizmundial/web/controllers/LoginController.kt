@@ -40,7 +40,7 @@ class LoginController {
             if (player != null)
             {
                 playerBean.player = player
-                if (playerBean.player.score > 0)
+                if (playerBean.player.currentLevel > 0)
                 {
                     playerBean.game = Game(questionRepository, playerRepository, playerBean)
                 }

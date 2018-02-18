@@ -38,6 +38,9 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
     var timer = 15
     var timerRunning = true
 
+    var buttonDisabled = Array<Boolean>(5){_ -> false}
+    var lastStage = 0
+
 
     var actualQuestion: Question? = null
         private set(value) {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 import javax.faces.context.FacesContext
 
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "gameController")
 @ELBeanName(value = "gameController")
 class GameController {
@@ -21,14 +21,12 @@ class GameController {
     @Autowired
     lateinit var playerRepository: PlayerRepository
 
-    var buttonDisabled = Array<Boolean>(5){_ -> false}
 
     val avalImages = arrayOf("text_youjumped.png", "text_youroright.png", "text_youwrong.png", "text_timeout.png" )
     val avalTexts = arrayOf("Você pulou", "Você acertou", "Você errou", "Tempo esgotado")
     var avalIndex = 0
 
-    var rating = 0
-    var stageActual = 0
+
 
 
 
@@ -42,7 +40,7 @@ class GameController {
             //Errou
             avalIndex = 2
         }
-        stageActual = playerBean.game!!.actualQuestion!!.stage
+        playerBean.game!!.lastStage = playerBean.game!!.actualQuestion!!.stage
         val requestContext = RequestContext.getCurrentInstance()
         requestContext.execute("\$('.avalmodal').modal()")
     }
@@ -63,7 +61,7 @@ class GameController {
         {
             val i = playerBean.game!!.dica()
             if (i >= 0)
-                buttonDisabled[i] = true
+                playerBean.game!!.buttonDisabled[i] = true
         }
     }
 
@@ -97,8 +95,8 @@ class GameController {
             //finaliza jogo
             FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
         }
-        buttonDisabled = Array<Boolean>(5){_ -> false}
-        if (stageActual != playerBean.game!!.actualQuestion!!.stage)
+        playerBean.game!!.buttonDisabled = Array<Boolean>(5){_ -> false}
+        if (playerBean.game!!.lastStage != playerBean.game!!.actualQuestion!!.stage)
         {
             playerBean.game!!.timerRunning = false
             val requestContext = RequestContext.getCurrentInstance()

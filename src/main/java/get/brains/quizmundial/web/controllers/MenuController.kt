@@ -42,6 +42,9 @@ class MenuController {
         }
 
     fun novoJogo() {
+        playerBean.player.currentLevel = 0
+        if (playerBean.player.id != null)
+            playerRepository.save(playerBean.player)
         playerBean.game = Game(questionDao, playerRepository, playerBean)
         FacesContext.getCurrentInstance().externalContext.redirect("questao.jsf")
     }
