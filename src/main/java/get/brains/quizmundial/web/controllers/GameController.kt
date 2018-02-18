@@ -1,12 +1,14 @@
 package get.brains.quizmundial.web.controllers
 
+import get.brains.quizmundial.web.objects.Game
 import get.brains.quizmundial.webservice.repository.PlayerRepository
-import net.bootsfaces.utils.FacesMessages
 import org.ocpsoft.rewrite.el.ELBeanName
+import org.primefaces.context.RequestContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import javax.faces.context.FacesContext
+
 
 @Scope(value = "session")
 @Component(value = "gameController")
@@ -21,25 +23,28 @@ class GameController {
 
     var buttonDisabled = Array<Boolean>(5){_ -> false}
 
-    var timer = 15
+    val avalImages = arrayOf("text_youjumped.png", "text_youroright.png", "text_youwrong.png", "text_timeout.png" )
+    val avalTexts = arrayOf("Você pulou", "Você acertou", "Você errou", "Tempo esgotado")
+    var avalIndex = 0
+
+    var rating = 0
+    var stageActual = 0
+
 
 
     fun answerAQuestion(index : Int) {
         if (playerBean.game!!.answerQuestion(playerBean.game!!.actualQuestion!!.answers[index]))
-            //mensagem questão correta
         {
-            FacesMessages.info("Parabéns", "Você acertou a questão")
+            //Acertou
+            avalIndex = 1
         }
         else {
-            FacesMessages.error(":(", "Que pena!, você errou")
+            //Errou
+            avalIndex = 2
         }
-        if (playerBean.game!!.getNextQuestion() == null)
-        {
-            //finaliza jogo
-            FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
-        }
-        timer = 15
-        buttonDisabled = Array<Boolean>(5){_ -> false}
+        stageActual = playerBean.game!!.actualQuestion!!.stage
+        val requestContext = RequestContext.getCurrentInstance()
+        requestContext.execute("\$('.avalmodal').modal()")
     }
 
     fun pular() {
@@ -47,7 +52,10 @@ class GameController {
         {
             playerBean.game!!.pulo()
         }
-        buttonDisabled = Array<Boolean>(5){_ -> false}
+        //Pulou
+        avalIndex = 0
+        val requestContext = RequestContext.getCurrentInstance()
+        requestContext.execute("\$('.avalmodal').modal()")
     }
 
     fun dica() {
@@ -71,44 +79,96 @@ class GameController {
 
     fun background():String
     {
-        when(playerBean.player.currentLevel)
+        when(playerBean.game!!.actualQuestion!!.continent)
         {
-            0 -> return "globe_america.png"
-            1 -> return "globe_asia.png"
-            2 -> return "globe_africa.png"
-            3 -> return "globe_europe.png"
-            4 -> return "globe_oceania.png"
+            "América" -> return "globe_america.png"
+            "Ásia" -> return "globe_asia.png"
+            "África" -> return "globe_africa.png"
+            "Europa" -> return "globe_europe.png"
+            "Oceania" -> return "globe_oceania.png"
             else -> return ""
         }
     }
 
-    fun decrementTimer(){
-        if (timer <= 0)
+    fun nextQuestion()
+    {
+        if (playerBean.game!!.getNextQuestion() == null)
         {
-            playerBean.game!!.answerQuestion(null)
-            FacesMessages.error(":(", "Você demorou demais")
+            //finaliza jogo
+            FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
+        }
+        buttonDisabled = Array<Boolean>(5){_ -> false}
+        if (stageActual != playerBean.game!!.actualQuestion!!.stage)
+        {
+            playerBean.game!!.timerRunning = false
+            val requestContext = RequestContext.getCurrentInstance()
+            requestContext.execute("\$('.nivelmodal').modal()")
+        }
 
-            if (playerBean.game!!.getNextQuestion() == null)
-            {
-                //finaliza jogo
-                FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
-            }
-            timer = 15
-            buttonDisabled = Array<Boolean>(5){_ -> false}
+        /*val ec = FacesContext.getCurrentInstance().externalContext
+        ec.redirect((ec.request as HttpServletRequest).getRequestURI())*/
+    }
+
+    fun decrementTimer(){
+        if (playerBean.game!!.timer <= 0 && playerBean.game!!.timerRunning)
+        {
+            //Time is Over
+            playerBean.game!!.answerQuestion(null)
+            avalIndex = 3
+            val requestContext = RequestContext.getCurrentInstance()
+            requestContext.execute("\$('.avalmodal').modal()")
         }
         else
         {
-            timer--
+            if (playerBean.game!!.timerRunning)
+                playerBean.game!!.timer--
         }
+    }
+
+    fun startTimer()
+    {
+        playerBean.game!!.timer = 15
+        playerBean.game!!.timerRunning = true
     }
 
     fun getTimerPercent():Int
     {
-        if (timer < 0) return 0
-        return (timer *100) /15
+        if (playerBean.game!!.timer < 0) return 0
+        return (playerBean.game!!.timer *100) /15
     }
 
 
+    fun continentProgresses(index:Int):Int
+    {
+        when(index) {
+            0 -> {
+                if (playerBean.player.currentLevel <= 4)
+                    return playerBean.player.currentLevel
+                else return 5
+            }
+            1 -> {
+                if (playerBean.player.currentLevel <= 5)
+                    return 0
+                else return 1
+            }
+            2 -> {
+                if (playerBean.player.currentLevel <= 6)
+                    return 0
+                else return 1
+            }
+            3 -> {
+                if (playerBean.player.currentLevel <= 7)
+                    return 0
+                else return 1
+            }
+            4 -> {
+                if (playerBean.player.currentLevel <= 8)
+                    return 0
+                else return 1
+            }
+        }
+        return 1
+    }
 
 
 }

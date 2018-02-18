@@ -12,11 +12,73 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </h:head>
 <h:body class="pais">
-    <h1><h:outputText value="#{gameController.playerBean.game.actualQuestion.continent}" /></h1>
+    <h:form>
+        <b:modal styleClass="avalmodal" closable="false"  close-on-escape="false" backdrop="false" header-style="padding:0; border:none;">
+            <b:image value="images/#{gameController.avalImages[gameController.avalIndex]}" tooltip="#{gameController.avalTexts[gameController.avalIndex]}" style="width:50%"/>
+            <br />
+            <h:outputLabel value="Progresso do nível" for="pbNextLevel" />
+            <b:progressBar id="pbNextLevel" value="#{playerBean.game.points.toString()}" max="#{playerBean.game.POINTS_TO_NEXT_LEVEL}"/>
+            <f:facet name="footer">
+                <h:commandButton value="Continuar" actionListener="#{gameController.nextQuestion()}" />
+            </f:facet>
+        </b:modal>
+        <b:modal styleClass="nivelmodal" closable="false"  close-on-escape="false" backdrop="false" header-style="padding:0; border:none;">
+            <img src="images/title_nivelconcluido.png" alt="Nível Concluído" width="50%"/>
+            <br />
+            <h:outputText value="Progresso no continente" />
+            <div>
+                <b:row>
+                    <b:column span="2">
+                        <h:outputLabel value="América" for="pbAmerica" />
+                    </b:column>
+                    <b:column span="10">
+                        <b:progressBar id="pbAmerica" value="#{gameController.continentProgresses(0).toString()}" max="5" renderCaption="false"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2">
+                        <h:outputLabel value="Ásia" for="pbAsia" />
+                    </b:column>
+                    <b:column span="10">
+                        <b:progressBar id="pbAsia" value="#{gameController.continentProgresses(1).toString()}" max="1" renderCaption="false"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2">
+                        <h:outputLabel value="África" for="pbAfrica" />
+                    </b:column>
+                    <b:column span="10">
+                        <b:progressBar id="pbAfrica" value="#{gameController.continentProgresses(2).toString()}" max="1" renderCaption="false"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2">
+                        <h:outputLabel value="Europa" for="pbEuropa" />
+                    </b:column>
+                    <b:column span="10">
+                        <b:progressBar id="pbEuropa" value="#{gameController.continentProgresses(3).toString()}" max="1" renderCaption="false"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2">
+                        <h:outputLabel value="Oceania" for="pbOceania" />
+                    </b:column>
+                    <b:column span="10">
+                        <b:progressBar id="pbOceania" value="#{gameController.continentProgresses(4).toString()}" max="1" renderCaption="false"/>
+                    </b:column>
+                </b:row>
+            </div>
+            <h:outputText value="Próximo nível: #{gameController.playerBean.game.actualQuestion.continent} - #{gameController.playerBean.game.actualQuestion.region}" />
+            <f:facet name="footer">
+                <h:commandButton value="Continuar" actionListener="#{gameController.startTimer()}" />
+            </f:facet>
+        </b:modal>
+    </h:form>
+    <h1><h:outputText value="#{gameController.playerBean.game.actualQuestion.continent} - #{gameController.playerBean.game.actualQuestion.region}" /></h1>
     <div id="containerQuestao" style="background:url(images/#{gameController.background()}) no-repeat top right ">
         <h:form id="form">
             <p:progressBar id="progressBarClient" widgetVar="pbClient" style="width:50%; margin: auto;"  value="#{gameController.getTimerPercent()}"/>
-            <p:poll interval="1" listener="#{gameController.decrementTimer}" update="form" />
+            <p:poll interval="1" listener="#{gameController.decrementTimer}" update="progressBarClient" />
 
             <div id="containerQ">
                 <p><span><h:outputText value="#{gameController.playerBean.game.actualQuestion.statement}" /></span></p>

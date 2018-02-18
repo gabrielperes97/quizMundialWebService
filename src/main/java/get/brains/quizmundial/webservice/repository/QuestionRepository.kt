@@ -14,4 +14,7 @@ interface QuestionRepository : CrudRepository<Question, Int>{
 
     @Query(nativeQuery = true, value = "SELECT * FROM quizmundial.question where continent=:cont order by random() limit 10")
     fun find10RandonByContinent(@Param("cont") continent: String): List<Question>
+
+    @Query(nativeQuery = true, value = "SELECT * FROM quizmundial.question WHERE stage=:stg ORDER BY random() LIMIT 10")
+    fun find10RandonByStage(@Param("stg") stage: Int): List<Question>
 }

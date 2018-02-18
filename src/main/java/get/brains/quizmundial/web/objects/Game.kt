@@ -12,11 +12,22 @@ import kotlin.collections.ArrayList
 
 class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, playerBean: PlayerBean){
 
+
+    val POINTS_TO_NEXT_LEVEL = 25
+    val NUMBER_OF_STAGES = 8
+    val POINTS_TO_GAME_OVER = NUMBER_OF_STAGES * POINTS_TO_NEXT_LEVEL
+
+
     val questionDao: QuestionRepository
     val playerBean: PlayerBean
     val playerRepository: PlayerRepository
     private var questionsToAnswer: MutableList<Question> = mutableListOf()
     var points = 0
+        get (){
+            if (field > POINTS_TO_NEXT_LEVEL)
+                return POINTS_TO_NEXT_LEVEL
+            else return field
+        }
         private set
     var dicasDisponiveis = 3
     var pulosDisponiveis = 3
@@ -24,17 +35,14 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
     var acertos = 0
     var dicasUsadas = ArrayList<Int>()
     val continentes = arrayOf("América", "Ásia", "África", "Europa", "Oceania") // nessa ordem
+    var timer = 15
+    var timerRunning = true
 
 
     var actualQuestion: Question? = null
         private set(value) {
             field = value
-           field!!.answers.shuffle()
-        }
-        get() {
-            if (field == null)
-                FacesContext.getCurrentInstance().externalContext.redirect("resumo.jsf")
-            return field
+            field!!.answers.shuffle()
         }
 
     init{ //mudar isso se continuar o jogo, com o nivel do usuário
@@ -47,6 +55,7 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
     fun answerQuestion(answer: Answer?): Boolean
     {
         if (answer != null) {
+            timerRunning = false
             playerBean.player.answeredQuestions++
             if (answer.correct) {
                 points += actualQuestion!!.difficult * 2 + 3
@@ -69,8 +78,8 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
         playerBean.player.currentLevel++
         if (playerBean.player.id != null)
             playerRepository.save(playerBean.player)
-        if (playerBean.player.currentLevel < 5) {
-            questionsToAnswer = questionDao.find10RandonByContinent(continentes[playerBean.player.currentLevel]).toMutableList()
+        if (playerBean.player.currentLevel <= NUMBER_OF_STAGES) {
+            questionsToAnswer = questionDao.find10RandonByStage(playerBean.player.currentLevel).toMutableList()
             dicasDisponiveis = 3
             pulosDisponiveis = 3
         }
@@ -78,18 +87,20 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
 
     fun getNextQuestion(): Question? {
         //Se for level 5, então acabou o jogo
-        if (playerBean.player.currentLevel < 5) {
-            if (points >= 25) {
+        if (playerBean.player.currentLevel <= NUMBER_OF_STAGES) {
+            if (points >= POINTS_TO_NEXT_LEVEL) {
                 proximoNivel()
-                if (playerBean.player.currentLevel >= 5)
+                if (playerBean.player.currentLevel > NUMBER_OF_STAGES)
                     return null
             } else {
                 if (questionsToAnswer.size <= 0) {
-                    questionsToAnswer = questionDao.find10RandonByContinent(continentes[playerBean.player.currentLevel]).toMutableList()
+                    questionsToAnswer = questionDao.find10RandonByStage(playerBean.player.currentLevel).toMutableList()
                 }
             }
             dicasUsadas.clear()
             actualQuestion = questionsToAnswer.removeAt(questionsToAnswer.size - 1)
+            timer = 15
+            timerRunning = true
             return actualQuestion
         }
         else
@@ -100,7 +111,6 @@ class Game(questionDao: QuestionRepository, playerRepository: PlayerRepository, 
     {
         if (pulosDisponiveis > 0) {
             answerQuestion(null)
-            getNextQuestion()
             pulosDisponiveis--
             return true
         }
